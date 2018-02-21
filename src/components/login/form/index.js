@@ -4,7 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
-import { FormControl } from 'material-ui/Form';
+import { FormControl, FormHelperText } from 'material-ui/Form';
 import Visibility from 'material-ui-icons/Visibility';
 import VisibilityOff from 'material-ui-icons/VisibilityOff';
 
@@ -23,19 +23,46 @@ const styles = theme => ( {
 
 class LoginForm extends React.Component {
   state = {
+    username: '',
     password: '',
     showPassword: false,
+    usernameValid: true,
+    passwordValid: true,
   };
 
-  handleChange = prop => ( event ) => {
-    this.setState( { [ prop ]: event.target.value } );
+  onSubmit = ( e ) => {
+    e.preventDefault();
+
+    const isUsernameValid = this.state.username;
+    const isPasswordValid = this.state.password;
+
+    if ( isUsernameValid && isPasswordValid ) {
+      this.setState( {
+        usernameValid: isUsernameValid,
+        passwordValid: isPasswordValid,
+        username: '',
+        password: '',
+      } );
+    } else {
+      this.setState( {
+        usernameValid: isUsernameValid,
+        passwordValid: isPasswordValid,
+      } );
+    }
   };
 
-  handleMouseDownPassword = ( event ) => {
-    event.preventDefault();
+  onChange = ( e ) => {
+    this.setState( {
+      [ e.target.name ]: e.target.value,
+      [ `${ e.target.name }Valid` ]: e.target.value,
+    } );
   };
 
-  handleClickShowPasssword = () => {
+  onMouseDownPassword = ( e ) => {
+    e.preventDefault();
+  };
+
+  onClickShowPasssword = () => {
     this.setState( { showPassword: !this.state.showPassword } );
   };
 
@@ -44,37 +71,57 @@ class LoginForm extends React.Component {
 
     return (
       <div className={classes.root}>
-        <FormControl className={classes.formControl}>
+        <FormControl className={classes.formControl} required>
           <InputLabel htmlFor="username">Username</InputLabel>
           <Input
             id="username"
+            name="username"
             type="text"
             value={this.state.username}
-            onChange={this.handleChange( 'username' )}
+            onChange={e => this.onChange( e )}
           />
+          <FormHelperText
+            id="username-helper-text"
+            error={!this.state.usernameValid}
+          >
+            {this.state.usernameValid ? '' : 'Username is missing'}
+          </FormHelperText>
         </FormControl>
-        <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="password">Password</InputLabel>
+        <FormControl className={classes.formControl} required>
+          <InputLabel htmlFor="username">Password</InputLabel>
           <Input
-            id="adornment-password"
+            id="password"
+            name="password"
             type={this.state.showPassword ? 'text' : 'password'}
             value={this.state.password}
-            onChange={this.handleChange( 'password' )}
+            onChange={e => this.onChange( e )}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
-                  onClick={this.handleClickShowPasssword}
-                  onMouseDown={this.handleMouseDownPassword}
+                  onClick={e => this.onClickShowPasssword( e )}
+                  onMouseDown={e => this.onMouseDownPassword( e )}
                 >
                   {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
             }
           />
+          <FormHelperText
+            id="password-helper-text"
+            error={!this.state.passwordValid}
+          >
+            {this.state.passwordValid ? '' : 'Password is missing'}
+          </FormHelperText>
         </FormControl>
         <FormControl>
-          <Button variant="raised" color="primary" className={classes.button}>
-            Primary
+          <Button
+            disabled={!this.state.usernameValid || !this.state.passwordValid}
+            variant="raised"
+            color="primary"
+            className={classes.button}
+            onClick={e => this.onSubmit( e )}
+          >
+            Login
           </Button>
         </FormControl>
       </div>

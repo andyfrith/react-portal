@@ -8,6 +8,7 @@ const cardStyles = {
     borderRadius: '3px',
     color: 'rgba(0, 0, 0, 0.87)',
     background: '#fff',
+    textAlign: 'left',
   },
 
   cardHeader: {

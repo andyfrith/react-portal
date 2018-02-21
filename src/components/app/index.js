@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 // import Header from '../header';
 import Login from '../login/';
@@ -11,13 +12,17 @@ const styles = theme => ( {
   },
 } );
 
-function App() {
+function App( { classes } ) {
   return (
-    <div>
+    <div className={classes.root}>
       {/* <Header /> */}
       <Login />
     </div>
   );
 }
+
+App.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 export default withRoot( withStyles( styles, { withTheme: true } )( App ) );
