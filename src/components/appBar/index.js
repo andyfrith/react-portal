@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
+import { logoutUser } from '../../actions/authenticationActions';
 
 const styles = {
   root: {
@@ -19,24 +21,38 @@ const styles = {
   },
 };
 
-const TheAppBar = ( props ) => {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
+const TheAppBar = ( { classes, logoutUserConnect, isAuthenticated } ) => (
+  <div className={classes.root}>
+    <AppBar position="static">
+      {isAuthenticated && (
         <Toolbar>
-          <Typography variant="title" color="inherit" className={classes.flex}>
-            Users
-          </Typography>
-          <Button color="inherit">Logout</Button>
+          <Button
+            onClick={( e ) => {
+              e.preventDefault();
+              logoutUserConnect();
+            }}
+          >
+            Logout
+          </Button>
+          <Link to="/users">
+            <Button>Show Users</Button>
+          </Link>
         </Toolbar>
-      </AppBar>
-    </div>
-  );
-};
+      )}
+    </AppBar>
+  </div>
+);
 
 TheAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  logoutUserConnect: PropTypes.func.isRequired,
 };
 
-export default withStyles( styles )( TheAppBar );
+const mapStateToProps = state => ( {
+  isAuthenticated: state.authentication.isAuthenticated,
+} );
+
+export default withStyles( styles )( connect( mapStateToProps, {
+  logoutUserConnect: logoutUser,
+} )( TheAppBar ) );

@@ -43,6 +43,13 @@ class LoginForm extends React.Component {
         username: '',
         password: '',
       } );
+
+      const creds = {
+        username: this.state.username,
+        password: this.state.password,
+      };
+      // console.log('creds', creds);
+      this.props.onLogin( creds );
     } else {
       this.setState( {
         usernameValid: isUsernameValid,
@@ -131,6 +138,7 @@ class LoginForm extends React.Component {
 
 LoginForm.propTypes = {
   classes: PropTypes.object.isRequired,
+  onLogin: PropTypes.func,
 };
 
 export default withStyles( styles )( LoginForm );

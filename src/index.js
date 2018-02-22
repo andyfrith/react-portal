@@ -1,13 +1,19 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
+import configureStore from './configureStore';
 import App from './components/app';
 import registerServiceWorker from './registerServiceWorker';
 
+const store = configureStore();
+
 render(
-  <HashRouter>
-    <App isAuthenticated />
-  </HashRouter>,
+  <Provider store={store}>
+    <HashRouter>
+      <App />
+    </HashRouter>
+  </Provider>,
   document.getElementById( 'root' ),
 );
 
