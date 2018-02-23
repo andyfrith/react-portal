@@ -1,6 +1,10 @@
 import cardStyles from '../styles';
 
 const styles = {
+  root: {
+    paddingTop: 100,
+  },
+
   ...cardStyles,
 
   // card: {

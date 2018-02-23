@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import Header from '../header';
 import Login from '../login/';
@@ -12,7 +12,6 @@ import ProtectedRoute from './ProtectedRoute';
 const styles = theme => ( {
   root: {
     textAlign: 'center',
-    // paddingTop: theme.spacing.unit * 20,
   },
 } );
 
@@ -32,7 +31,11 @@ function App( { classes, isAuthenticated } ) {
         component={Users}
         isAuthenticated={isAuthenticated}
       />
-      <Route path="/login" exact component={Login} />
+      <Route
+        path="/login"
+        exact
+        render={() => <Login isAuthenticated={isAuthenticated} />}
+      />
     </div>
   );
 }
@@ -46,4 +49,6 @@ const mapStateToProps = state => ( {
   isAuthenticated: state.authentication.isAuthenticated,
 } );
 
-export default withRoot( withStyles( styles, { withTheme: true } )( connect( mapStateToProps )( App ) ) );
+const routedComp = withRouter( connect( mapStateToProps )( App ) );
+
+export default withRoot( withStyles( styles, { withTheme: true } )( routedComp ) );
