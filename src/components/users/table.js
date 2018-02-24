@@ -7,50 +7,50 @@ import Table, {
   TableHead,
   TableRow,
 } from 'material-ui/Table';
-import Paper from 'material-ui/Paper';
-
-import data from './users.json';
 
 const styles = theme => ( {
   root: {
     width: '100%',
     marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
+    background: 'transparent',
   },
   table: {
     minWidth: 700,
+    background: 'transparent',
   },
 } );
 
 function UsersTable( props ) {
-  const { classes } = props;
+  const { classes, users } = props;
 
   return (
-    <Paper className={classes.root}>
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell>First Name</TableCell>
-            <TableCell>Last Name</TableCell>
-            <TableCell>Address</TableCell>
+    <Table className={classes.table}>
+      <TableHead>
+        <TableRow>
+          <TableCell>Display Name</TableCell>
+          <TableCell>Gender</TableCell>
+          <TableCell>Location</TableCell>
+          <TableCell>Website</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {users.map( n => (
+          <TableRow key={n.user_id}>
+            <TableCell>{n.display_name}</TableCell>
+            <TableCell>{n.gender}</TableCell>
+            <TableCell>{n.location}</TableCell>
+            <TableCell>{n.website}</TableCell>
           </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map( n => (
-            <TableRow key={n.id}>
-              <TableCell>{n.firstName}</TableCell>
-              <TableCell numeric>{n.lastName}</TableCell>
-              <TableCell numeric>{n.address}</TableCell>
-            </TableRow>
-          ) )}
-        </TableBody>
-      </Table>
-    </Paper>
+        ) )}
+      </TableBody>
+    </Table>
   );
 }
 
 UsersTable.propTypes = {
   classes: PropTypes.object.isRequired,
+  users: PropTypes.array.isRequired,
 };
 
 export default withStyles( styles )( UsersTable );

@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 import configureStore from './configureStore';
-import App from './components/app';
+import App from './containers/app';
 import registerServiceWorker from './registerServiceWorker';
 
 const store = configureStore();

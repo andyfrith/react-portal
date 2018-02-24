@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, withRouter } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
-import Header from '../header';
-import Login from '../login/';
-import Users from '../users';
+import Header from '../../components/header';
+import Login from '../../components/login/';
+import User from '../../components/user';
+import Users from '../../containers/users';
 import withRoot from '../../withRoot';
 import ProtectedRoute from './ProtectedRoute';
 
@@ -29,6 +30,12 @@ function App( { classes, isAuthenticated } ) {
         path="/users"
         exact
         component={Users}
+        isAuthenticated={isAuthenticated}
+      />
+      <ProtectedRoute
+        path="/user"
+        exact
+        component={User}
         isAuthenticated={isAuthenticated}
       />
       <Route

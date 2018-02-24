@@ -11,6 +11,7 @@ import AccountCircle from 'material-ui-icons/AccountCircle';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Fade from 'material-ui/transitions/Fade';
 import { logoutUser } from '../../actions/authenticationActions';
+import { loadUsers } from '../../actions/userActions';
 
 const styles = {
   root: {
@@ -43,6 +44,11 @@ class TheAppBar extends React.Component {
     this.setState( { anchorEl: null } );
   };
 
+  handleLoadUsers = () => {
+    this.setState( { anchorEl: null } );
+    this.props.loadUsersConnect();
+  };
+
   handleLogout = () => {
     this.setState( { anchorEl: null } );
     this.props.logoutUserConnect();
@@ -53,6 +59,7 @@ class TheAppBar extends React.Component {
     const { anchorEl } = this.state;
     const open = Boolean( anchorEl );
     const usersLink = props => <Link to="/users" {...props} />;
+    const userLink = props => <Link to="/user" {...props} />;
 
     if ( !isAuthenticated ) {
       return null;
@@ -63,6 +70,12 @@ class TheAppBar extends React.Component {
         <Fade in>
           <AppBar position="static">
             <Toolbar className={classes.toolbar}>
+              <Button color="inherit" component={userLink}>
+                Add User
+              </Button>
+              <Button color="inherit" onClick={this.handleLoadUsers}>
+                Load Users
+              </Button>
               <Button color="inherit" component={usersLink}>
                 Show Users
               </Button>
@@ -106,6 +119,7 @@ TheAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
   logoutUserConnect: PropTypes.func.isRequired,
+  loadUsersConnect: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ( {
@@ -114,4 +128,5 @@ const mapStateToProps = state => ( {
 
 export default withStyles( styles )( connect( mapStateToProps, {
   logoutUserConnect: logoutUser,
+  loadUsersConnect: loadUsers,
 } )( TheAppBar ) );

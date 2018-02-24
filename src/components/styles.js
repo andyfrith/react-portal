@@ -13,9 +13,9 @@ const cardStyles = {
 
   cardHeader: {
     color: '#fff',
-    background: 'linear-gradient(60deg, #66bb6a, #43a047)',
+    background: 'linear-gradient(60deg, #9e9e9e, #888)',
     boxShadow:
-      '0 12px 20px -10px rgba(76, 175, 80, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(76, 175, 80, 0.2)',
+      '0 12px 20px -10px rgba(136, 136, 136, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(136, 136, 136, 0.2)',
     margin: '-20px 15px 0',
     borderRadius: '3px',
     padding: '15px',

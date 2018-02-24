@@ -138,7 +138,7 @@ class LoginForm extends React.Component {
 
 LoginForm.propTypes = {
   classes: PropTypes.object.isRequired,
-  onLogin: PropTypes.func,
+  onLogin: PropTypes.func.isRequired,
 };
 
 export default withStyles( styles )( LoginForm );

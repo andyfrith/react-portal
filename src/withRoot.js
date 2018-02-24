@@ -1,15 +1,15 @@
 import React from 'react';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import blue from 'material-ui/colors/blue';
-import green from 'material-ui/colors/green';
+import grey from 'material-ui/colors/grey';
 import Reboot from 'material-ui/Reboot';
 
 const theme = createMuiTheme( {
   palette: {
     primary: {
-      light: green[ 300 ],
-      main: green[ 500 ],
-      dark: green[ 700 ],
+      light: grey[ 300 ],
+      main: grey[ 500 ],
+      dark: grey[ 700 ],
       contrastText: '#fff',
     },
     secondary: {

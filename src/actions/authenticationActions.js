@@ -1,6 +1,6 @@
 import v4 from 'node-uuid';
 import * as types from './actionTypes';
-import authenticationAPI from '../api/AuthenticationAPI';
+// import authenticationAPI from '../api/AuthenticationAPI';
 
 export const requestLogin = creds => ( {
   type: types.LOGIN_REQUEST,
@@ -35,27 +35,25 @@ export const receiveLogout = () => ( {
   isAuthenticated: false,
 } );
 
-export const loginUser = creds => dispatch =>
-  authenticationAPI
-    .loginUser( creds )
-    .then( ( user ) => {
-      if ( user && user.id_token ) {
-        localStorage.setItem( 'id_token', user.id_token );
-        dispatch( receiveLogin( user ) );
-      } else {
-        // Return OK for testing without node server
-        // dispatch( loginError( 'bad' ) );
-        const mockUser = {};
-        mockUser.username = creds.username;
-        mockUser.password = creds.password;
-        mockUser.id_token = v4();
-        localStorage.setItem( 'id_token', mockUser.id_token );
-        dispatch( receiveLogin( mockUser ) );
-      }
-    } )
-    .catch( ( error ) => {
-      throw error;
-    } );
+// export const loginUser = creds => dispatch =>
+//   authenticationAPI
+//     .loginUser( creds )
+//     .then( ( user ) => {
+//       if ( user && user.id_token ) {
+//         localStorage.setItem( 'id_token', user.id_token );
+//         dispatch( receiveLogin( user ) );
+//       } else {
+//         dispatch( loginError( 'bad' ) );
+//       }
+//     } )
+//     .catch( ( error ) => {
+//       throw error;
+//     } );
+
+export const loginUser = creds => ( dispatch ) => {
+  localStorage.setItem( 'id_token', v4() );
+  dispatch( receiveLogin( creds ) );
+};
 
 export const logoutUser = () => ( dispatch ) => {
   dispatch( requestLogout() );
