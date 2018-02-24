@@ -30,4 +30,4 @@ This project template was built with [Create React App](https://github.com/faceb
 
 ## License
 
-This project is licensed under the MIT license, Copyright (c) 2017 Andy Frith. For more information see `LICENSE.md`.
+This project is licensed under the MIT license, Copyright (c) 2018 Andy Frith.
