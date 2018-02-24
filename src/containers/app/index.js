@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, withRouter } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
-import Header from '../../components/header';
+import Header from '../../containers/header';
 import Login from '../../components/login/';
 import User from '../../components/user';
 import Users from '../../containers/users';

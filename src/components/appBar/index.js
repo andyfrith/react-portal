@@ -1,17 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import AccountCircle from 'material-ui-icons/AccountCircle';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Fade from 'material-ui/transitions/Fade';
-import { logoutUser } from '../../actions/authenticationActions';
-import { loadUsers } from '../../actions/userActions';
 
 const styles = {
   root: {
@@ -46,12 +42,12 @@ class TheAppBar extends React.Component {
 
   handleLoadUsers = () => {
     this.setState( { anchorEl: null } );
-    this.props.loadUsersConnect();
+    this.props.loadUsers();
   };
 
   handleLogout = () => {
     this.setState( { anchorEl: null } );
-    this.props.logoutUserConnect();
+    this.props.logoutUser();
   };
 
   render() {
@@ -70,15 +66,6 @@ class TheAppBar extends React.Component {
         <Fade in>
           <AppBar position="static">
             <Toolbar className={classes.toolbar}>
-              <Button color="inherit" component={userLink}>
-                Add User
-              </Button>
-              <Button color="inherit" onClick={this.handleLoadUsers}>
-                Load Users
-              </Button>
-              <Button color="inherit" component={usersLink}>
-                Show Users
-              </Button>
               {this.props.isAuthenticated && (
                 <div>
                   <IconButton
@@ -103,6 +90,15 @@ class TheAppBar extends React.Component {
                     open={open}
                     onClose={this.handleClose}
                   >
+                    <MenuItem onClick={this.handleClose} component={userLink}>
+                      Add User
+                    </MenuItem>
+                    <MenuItem onClick={this.handleClose} component={usersLink}>
+                      Show Users
+                    </MenuItem>
+                    <MenuItem onClick={this.handleLoadUsers}>
+                      Load Users
+                    </MenuItem>
                     <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
                   </Menu>
                 </div>
@@ -118,15 +114,8 @@ class TheAppBar extends React.Component {
 TheAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
-  logoutUserConnect: PropTypes.func.isRequired,
-  loadUsersConnect: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
+  loadUsers: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ( {
-  isAuthenticated: state.authentication.isAuthenticated,
-} );
-
-export default withStyles( styles )( connect( mapStateToProps, {
-  logoutUserConnect: logoutUser,
-  loadUsersConnect: loadUsers,
-} )( TheAppBar ) );
+export default withStyles( styles )( TheAppBar );
