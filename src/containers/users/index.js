@@ -18,10 +18,15 @@ class UsersContainer extends React.Component {
   };
 
   render() {
-    const { users, deleteUserConnect } = this.props;
+    const { users, deleteUserConnect, selectUserConnect } = this.props;
 
     const handleDeleteUser = ( user ) => {
       this.setState( { dialogOpen: true, selectedUser: user } );
+    };
+
+    const handleEditUser = ( user ) => {
+      this.setState( { selectedUser: user } );
+      selectUserConnect( user );
     };
 
     const handleClose = () => {
@@ -58,7 +63,11 @@ class UsersContainer extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
-        <Users users={users} deleteUser={handleDeleteUser} />
+        <Users
+          users={users}
+          deleteUser={handleDeleteUser}
+          editUser={handleEditUser}
+        />
       </div>
     ) : (
       <p>No Users!</p>
@@ -75,6 +84,7 @@ UsersContainer.propTypes = {
     website: PropTypes.string.isRequired,
   } ) ).isRequired,
   deleteUserConnect: PropTypes.func.isRequired,
+  selectUserConnect: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ( {

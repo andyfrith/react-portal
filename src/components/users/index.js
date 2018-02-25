@@ -9,7 +9,9 @@ import Table from './table';
 import styles from './styles';
 
 function Index( props ) {
-  const { classes, users, deleteUser } = props;
+  const {
+    classes, users, deleteUser, editUser,
+  } = props;
 
   return (
     <div>
@@ -29,7 +31,7 @@ function Index( props ) {
             title="Users"
           />
           <CardContent>
-            <Table users={users} deleteUser={deleteUser} />
+            <Table users={users} deleteUser={deleteUser} editUser={editUser} />
           </CardContent>
         </Card>
       </Fade>
@@ -41,6 +43,7 @@ Index.propTypes = {
   classes: PropTypes.object.isRequired,
   users: PropTypes.array.isRequired,
   deleteUser: PropTypes.func.isRequired,
+  editUser: PropTypes.func.isRequired,
 };
 
 export default withStyles( styles )( Index );

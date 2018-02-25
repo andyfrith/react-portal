@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
 import CreateIcon from 'material-ui-icons/Create';
@@ -25,10 +26,16 @@ const styles = theme => ( {
 } );
 
 function UsersTable( props ) {
-  const { classes, users, deleteUser } = props;
+  const {
+    classes, users, deleteUser, editUser,
+  } = props;
 
   const handleDelete = ( user ) => {
     deleteUser( user );
+  };
+
+  const handleEdit = ( user ) => {
+    editUser( user );
   };
 
   return (
@@ -50,13 +57,11 @@ function UsersTable( props ) {
             <TableCell>{n.location}</TableCell>
             <TableCell>{n.website}</TableCell>
             <TableCell>
-              <IconButton
-                onClick={() => handleDelete( n )}
-                className={classes.button}
-                aria-label="Edit"
-              >
-                <CreateIcon />
-              </IconButton>
+              <Link onClick={() => handleEdit( n )} to={`/user/ ${ n.user_id }`}>
+                <IconButton className={classes.button} aria-label="Edit">
+                  <CreateIcon />
+                </IconButton>
+              </Link>
               <IconButton
                 onClick={() => handleDelete( n )}
                 className={classes.button}
@@ -76,6 +81,7 @@ UsersTable.propTypes = {
   classes: PropTypes.object.isRequired,
   users: PropTypes.array.isRequired,
   deleteUser: PropTypes.func.isRequired,
+  editUser: PropTypes.func.isRequired,
 };
 
 export default withStyles( styles )( UsersTable );

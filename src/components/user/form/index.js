@@ -35,10 +35,26 @@ const styles = theme => ( {
 
 class UserForm extends React.Component {
   state = {
-    displayName: '',
-    location: '',
-    website: '',
-    gender: 'female',
+    displayName:
+      this.props.isEditing && this.props.selectedUser.display_name
+        ? this.props.selectedUser.display_name
+        : '',
+
+    location:
+      this.props.isEditing && this.props.selectedUser.location
+        ? this.props.selectedUser.location
+        : '',
+
+    website:
+      this.props.isEditing && this.props.selectedUser.website
+        ? this.props.selectedUser.website
+        : '',
+
+    gender:
+      this.props.isEditing && this.props.selectedUser.gender
+        ? this.props.selectedUser.gender
+        : '',
+
     genderValid: true,
     locationValid: true,
     displayNameValid: true,
@@ -133,20 +149,12 @@ class UserForm extends React.Component {
                 onChange={e => this.onChange( e )}
               >
                 <FormControlLabel
-                  value="female"
+                  value="F"
                   control={<Radio />}
                   label="Female"
                 />
-                <FormControlLabel
-                  value="male"
-                  control={<Radio />}
-                  label="Male"
-                />
-                <FormControlLabel
-                  value="other"
-                  control={<Radio />}
-                  label="Other"
-                />
+                <FormControlLabel value="M" control={<Radio />} label="Male" />
+                <FormControlLabel value="O" control={<Radio />} label="Other" />
               </RadioGroup>
             </FormControl>
           </Grid>
@@ -213,6 +221,8 @@ class UserForm extends React.Component {
 UserForm.propTypes = {
   classes: PropTypes.object.isRequired,
   createUser: PropTypes.func.isRequired,
+  selectedUser: PropTypes.object.isRequired,
+  isEditing: PropTypes.bool.isRequired,
 };
 
 export default withStyles( styles )( UserForm );

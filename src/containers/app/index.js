@@ -33,6 +33,12 @@ function App( { classes, isAuthenticated } ) {
         isAuthenticated={isAuthenticated}
       />
       <ProtectedRoute
+        path="/user/:id"
+        exact
+        component={User}
+        isAuthenticated={isAuthenticated}
+      />
+      <ProtectedRoute
         path="/user"
         exact
         component={User}
