@@ -33,8 +33,8 @@ class LoginForm extends React.Component {
   onSubmit = ( e ) => {
     e.preventDefault();
 
-    const isUsernameValid = this.state.username;
-    const isPasswordValid = this.state.password;
+    const isUsernameValid = this.state.username !== '';
+    const isPasswordValid = this.state.password !== '';
 
     if ( isUsernameValid && isPasswordValid ) {
       this.setState( {
@@ -48,7 +48,7 @@ class LoginForm extends React.Component {
         username: this.state.username,
         password: this.state.password,
       };
-      // console.log('creds', creds);
+
       this.props.onLogin( creds );
     } else {
       this.setState( {

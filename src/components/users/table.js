@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
+import IconButton from 'material-ui/IconButton';
+import DeleteIcon from 'material-ui-icons/Delete';
 import Table, {
   TableBody,
   TableCell,
@@ -22,7 +24,11 @@ const styles = theme => ( {
 } );
 
 function UsersTable( props ) {
-  const { classes, users } = props;
+  const { classes, users, deleteUser } = props;
+
+  const handleDelete = ( user ) => {
+    deleteUser( user );
+  };
 
   return (
     <Table className={classes.table}>
@@ -32,6 +38,7 @@ function UsersTable( props ) {
           <TableCell>Gender</TableCell>
           <TableCell>Location</TableCell>
           <TableCell>Website</TableCell>
+          <TableCell />
         </TableRow>
       </TableHead>
       <TableBody>
@@ -41,6 +48,15 @@ function UsersTable( props ) {
             <TableCell>{n.gender}</TableCell>
             <TableCell>{n.location}</TableCell>
             <TableCell>{n.website}</TableCell>
+            <TableCell>
+              <IconButton
+                onClick={() => handleDelete( n )}
+                className={classes.button}
+                aria-label="Delete"
+              >
+                <DeleteIcon />
+              </IconButton>
+            </TableCell>
           </TableRow>
         ) )}
       </TableBody>
@@ -51,6 +67,7 @@ function UsersTable( props ) {
 UsersTable.propTypes = {
   classes: PropTypes.object.isRequired,
   users: PropTypes.array.isRequired,
+  deleteUser: PropTypes.func.isRequired,
 };
 
 export default withStyles( styles )( UsersTable );

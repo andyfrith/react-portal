@@ -7,7 +7,7 @@ import Form from './form';
 import styles from './styles';
 
 function Index( props ) {
-  const { classes } = props;
+  const { classes, createUser } = props;
 
   return (
     <div>
@@ -22,7 +22,7 @@ function Index( props ) {
             title="User"
           />
           <CardContent>
-            <Form />
+            <Form createUser={createUser} />
           </CardContent>
         </Card>
       </Fade>
@@ -32,6 +32,7 @@ function Index( props ) {
 
 Index.propTypes = {
   classes: PropTypes.object.isRequired,
+  createUser: PropTypes.func.isRequired,
 };
 
 export default withStyles( styles )( Index );

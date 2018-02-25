@@ -14,7 +14,6 @@ import {
 
 const styles = theme => ( {
   root: {
-    // flexWrap: 'wrap',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -39,20 +38,35 @@ class UserForm extends React.Component {
     genderValid: true,
     locationValid: true,
     displayNameValid: true,
+    websiteValid: true,
   };
 
   onSubmit = ( e ) => {
     e.preventDefault();
 
-    const isDisplayNameValid = this.state.displayNameValid;
-    const isGenderValid = this.state.genderValid;
-    const isLocationValid = this.state.locationValid;
+    const isDisplayNameValid = this.state.displayName !== '';
+    const isGenderValid = this.state.gender !== '';
+    const isLocationValid = this.state.location !== '';
+    const isWebsiteValid = this.state.website !== '';
 
-    if ( isDisplayNameValid && isGenderValid && isLocationValid ) {
+    if (
+      isDisplayNameValid &&
+      isGenderValid &&
+      isLocationValid &&
+      isWebsiteValid
+    ) {
+      this.props.createUser(
+        this.state.displayName,
+        this.state.gender,
+        this.state.location,
+        this.state.website,
+      );
+
       this.setState( {
         displayNameValid: isDisplayNameValid,
         genderValid: isGenderValid,
         locationValid: isLocationValid,
+        websiteValid: isWebsiteValid,
         displayName: '',
         gender: '',
         location: '',
@@ -66,6 +80,7 @@ class UserForm extends React.Component {
         displayNameValid: isDisplayNameValid,
         locationValid: isLocationValid,
         genderValid: isGenderValid,
+        websiteValid: isWebsiteValid,
       } );
     }
   };
@@ -108,7 +123,7 @@ class UserForm extends React.Component {
               <FormLabel component="legend">Gender</FormLabel>
               <RadioGroup
                 aria-label="gender"
-                name="gender1"
+                name="gender"
                 className={classes.group}
                 value={this.state.gender}
                 onChange={e => this.onChange( e )}
@@ -148,7 +163,7 @@ class UserForm extends React.Component {
                 {this.state.locationValid ? '' : 'Location is missing'}
               </FormHelperText>
             </FormControl>
-            <FormControl className={classes.formControl}>
+            <FormControl className={classes.formControl} required>
               <InputLabel htmlFor="website">Website</InputLabel>
               <Input
                 id="website"
@@ -157,6 +172,12 @@ class UserForm extends React.Component {
                 value={this.state.website}
                 onChange={e => this.onChange( e )}
               />
+              <FormHelperText
+                id="website-helper-text"
+                error={!this.state.website}
+              >
+                {this.state.locationValid ? '' : 'Website is missing'}
+              </FormHelperText>
             </FormControl>
           </Grid>
           <Grid item xs={12}>
@@ -165,7 +186,8 @@ class UserForm extends React.Component {
                 disabled={
                   !this.state.displayNameValid ||
                   !this.state.genderValid ||
-                  !this.state.locationValid
+                  !this.state.locationValid ||
+                  !this.state.websiteValid
                 }
                 variant="raised"
                 color="primary"
@@ -184,7 +206,7 @@ class UserForm extends React.Component {
 
 UserForm.propTypes = {
   classes: PropTypes.object.isRequired,
-  onLogin: PropTypes.func,
+  createUser: PropTypes.func.isRequired,
 };
 
 export default withStyles( styles )( UserForm );
