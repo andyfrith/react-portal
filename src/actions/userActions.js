@@ -39,9 +39,9 @@ export const loadUsers = () => dispatch =>
 
 export const updateUser = user => dispatch => dispatch( updateUserSuccess( user ) );
 
-export const createUser = ( displayName, gender, location, website ) => {
+export const createUser = ( userId, displayName, gender, location, website ) => {
   const user = {
-    user_id: v4(),
+    user_id: userId || v4(),
     display_name: displayName,
     gender,
     location,

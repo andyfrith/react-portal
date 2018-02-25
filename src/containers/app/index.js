@@ -10,11 +10,11 @@ import Users from '../../containers/users';
 import withRoot from '../../withRoot';
 import ProtectedRoute from './ProtectedRoute';
 
-const styles = theme => ( {
+const styles = {
   root: {
     textAlign: 'center',
   },
-} );
+};
 
 function App( { classes, isAuthenticated } ) {
   return (

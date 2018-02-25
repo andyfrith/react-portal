@@ -35,6 +35,11 @@ const styles = theme => ( {
 
 class UserForm extends React.Component {
   state = {
+    userId:
+      this.props.isEditing && this.props.selectedUser.user_id
+        ? this.props.selectedUser.user_id
+        : '',
+
     displayName:
       this.props.isEditing && this.props.selectedUser.display_name
         ? this.props.selectedUser.display_name
@@ -76,6 +81,7 @@ class UserForm extends React.Component {
       isWebsiteValid
     ) {
       this.props.createUser(
+        this.state.userId,
         this.state.displayName,
         this.state.gender,
         this.state.location,
