@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
+import VpnKey from 'material-ui-icons/VpnKey';
 import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
 import { FormControl, FormHelperText } from 'material-ui/Form';
 import Visibility from 'material-ui-icons/Visibility';
@@ -18,6 +19,9 @@ const styles = theme => ( {
   },
   withoutLabel: {
     marginTop: theme.spacing.unit * 3,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
   },
 } );
 
@@ -128,6 +132,7 @@ class LoginForm extends React.Component {
             className={classes.button}
             onClick={e => this.onSubmit( e )}
           >
+            <VpnKey className={classes.leftIcon} />
             Login
           </Button>
         </FormControl>

@@ -5,6 +5,7 @@ import Button from 'material-ui/Button';
 import Input, { InputLabel } from 'material-ui/Input';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import Grid from 'material-ui/Grid';
+import Save from 'material-ui-icons/Save';
 import {
   FormLabel,
   FormControl,
@@ -26,6 +27,9 @@ const styles = theme => ( {
   },
   group: {
     margin: `${ theme.spacing.unit }px 0`,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
   },
 } );
 
@@ -189,12 +193,14 @@ class UserForm extends React.Component {
                   !this.state.locationValid ||
                   !this.state.websiteValid
                 }
-                variant="raised"
-                color="primary"
                 className={classes.button}
+                variant="raised"
+                size="small"
+                color="primary"
                 onClick={e => this.onSubmit( e )}
               >
-                Submit
+                <Save className={classes.leftIcon} />
+                Save
               </Button>
             </FormControl>
           </Grid>

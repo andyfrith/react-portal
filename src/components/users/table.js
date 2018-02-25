@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
-import DeleteIcon from 'material-ui-icons/Delete';
+import CreateIcon from 'material-ui-icons/Create';
+import RemoveCircleIcon from 'material-ui-icons/RemoveCircle';
 import Table, {
   TableBody,
   TableCell,
@@ -52,9 +53,16 @@ function UsersTable( props ) {
               <IconButton
                 onClick={() => handleDelete( n )}
                 className={classes.button}
+                aria-label="Edit"
+              >
+                <CreateIcon />
+              </IconButton>
+              <IconButton
+                onClick={() => handleDelete( n )}
+                className={classes.button}
                 aria-label="Delete"
               >
-                <DeleteIcon />
+                <RemoveCircleIcon />
               </IconButton>
             </TableCell>
           </TableRow>

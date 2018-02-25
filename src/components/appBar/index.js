@@ -7,9 +7,14 @@ import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import AccountCircle from 'material-ui-icons/AccountCircle';
 import Menu, { MenuItem } from 'material-ui/Menu';
+import { ListItemIcon, ListItemText } from 'material-ui/List';
+import PersonAddIcon from 'material-ui-icons/PersonAdd';
+import PeopleIcon from 'material-ui-icons/People';
+import FileUploadIcon from 'material-ui-icons/FileUpload';
+import ExitToAppIcon from 'material-ui-icons/ExitToApp';
 import Fade from 'material-ui/transitions/Fade';
 
-const styles = {
+const styles = theme => ( {
   root: {
     display: 'flex',
     flexGrow: 1,
@@ -20,12 +25,13 @@ const styles = {
   toolbar: {
     justifyContent: 'flex-end',
   },
-
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
   },
-};
+  primary: {},
+  icon: {},
+} );
 
 class TheAppBar extends React.Component {
   state = {
@@ -91,15 +97,45 @@ class TheAppBar extends React.Component {
                     onClose={this.handleClose}
                   >
                     <MenuItem onClick={this.handleClose} component={userLink}>
-                      Add User
+                      <ListItemIcon className={classes.icon}>
+                        <PersonAddIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        classes={{ primary: classes.primary }}
+                        inset
+                        primary="Add User"
+                      />
                     </MenuItem>
                     <MenuItem onClick={this.handleClose} component={usersLink}>
-                      Show Users
+                      <ListItemIcon className={classes.icon}>
+                        <PeopleIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        classes={{ primary: classes.primary }}
+                        inset
+                        primary="Show Users"
+                      />
                     </MenuItem>
                     <MenuItem onClick={this.handleLoadUsers}>
-                      Load Users
+                      <ListItemIcon className={classes.icon}>
+                        <FileUploadIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        classes={{ primary: classes.primary }}
+                        inset
+                        primary="Load Users"
+                      />
                     </MenuItem>
-                    <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+                    <MenuItem onClick={this.handleLogout}>
+                      <ListItemIcon className={classes.icon}>
+                        <ExitToAppIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        classes={{ primary: classes.primary }}
+                        inset
+                        primary="Logout"
+                      />
+                    </MenuItem>
                   </Menu>
                 </div>
               )}
