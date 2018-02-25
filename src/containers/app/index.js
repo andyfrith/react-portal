@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Route, withRouter } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import Header from '../../containers/header';
-import Login from '../../components/login/';
+import Login from '../../containers/login/';
 import User from '../../containers/user';
 import Users from '../../containers/users';
 import withRoot from '../../withRoot';

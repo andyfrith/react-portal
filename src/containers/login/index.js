@@ -2,13 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authenticationActions';
-import LoginForm from '../../components/login/form/';
+import Login from '../../components/login/';
 
-const LoginContainer = ( { loginUserConnect } ) => (
-  <LoginForm onLogin={creds => loginUserConnect( creds )} />
+const LoginContainer = ( { isAuthenticated, loginUserConnect } ) => (
+  <Login
+    isAuthenticated={isAuthenticated}
+    onLogin={creds => loginUserConnect( creds )}
+  />
 );
 
 LoginContainer.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
   loginUserConnect: PropTypes.func.isRequired,
 };
 

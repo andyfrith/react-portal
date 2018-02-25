@@ -128,6 +128,7 @@ class LoginForm extends React.Component {
           <Button
             disabled={!this.state.usernameValid || !this.state.passwordValid}
             variant="raised"
+            mini
             color="primary"
             className={classes.button}
             onClick={e => this.onSubmit( e )}
