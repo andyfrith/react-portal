@@ -1,15 +1,70 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Button from 'material-ui/Button';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from 'material-ui/Dialog';
 import { deleteUser, selectUser } from '../../actions/userActions';
 import Users from '../../components/users';
 
-const UsersContainer = ( { users, deleteUserConnect } ) =>
-  ( users.length > 0 ? (
-    <Users users={users} deleteUser={deleteUserConnect} />
-  ) : (
-    <p>No Users!</p>
-  ) );
+class UsersContainer extends React.Component {
+  state = {
+    dialogOpen: false,
+    selectedUser: {},
+  };
+
+  render() {
+    const { users, deleteUserConnect } = this.props;
+
+    const handleDeleteUser = ( user ) => {
+      this.setState( { dialogOpen: true, selectedUser: user } );
+    };
+
+    const handleClose = () => {
+      this.setState( { dialogOpen: false, selectedUser: {} } );
+    };
+
+    const handleDeleteUserConfirmed = () => {
+      deleteUserConnect( this.state.selectedUser );
+      handleClose();
+    };
+
+    return users.length > 0 ? (
+      <div>
+        <Dialog
+          open={this.state.dialogOpen}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            Delete {this.state.selectedUser.display_name}?{' '}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              The user will be marked inactive.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleDeleteUserConfirmed} color="primary">
+              Yes
+            </Button>
+            <Button onClick={handleClose} color="primary" autoFocus>
+              No
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Users users={users} deleteUser={handleDeleteUser} />
+      </div>
+    ) : (
+      <p>No Users!</p>
+    );
+  }
+}
 
 UsersContainer.propTypes = {
   users: PropTypes.arrayOf( PropTypes.shape( {
