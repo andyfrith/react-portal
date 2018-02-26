@@ -14,7 +14,7 @@ import FileUploadIcon from 'material-ui-icons/FileUpload';
 import ExitToAppIcon from 'material-ui-icons/ExitToApp';
 import Fade from 'material-ui/transitions/Fade';
 
-const styles = theme => ( {
+const styles = {
   root: {
     display: 'flex',
     flexGrow: 1,
@@ -31,7 +31,7 @@ const styles = theme => ( {
   },
   primary: {},
   icon: {},
-} );
+};
 
 class TheAppBar extends React.Component {
   state = {

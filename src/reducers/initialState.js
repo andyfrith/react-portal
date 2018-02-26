@@ -1,5 +1,4 @@
-
 export default {
   users: [],
-  selectedUser: null
+  selectedUser: {},
 };

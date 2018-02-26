@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Route, withRouter } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import Header from '../../containers/header';
+import Notifications from '../../containers/notifications';
 import Login from '../../containers/login/';
 import User from '../../containers/user';
 import Users from '../../containers/users';
@@ -19,6 +20,7 @@ const styles = {
 function App( { classes, isAuthenticated } ) {
   return (
     <div className={classes.root}>
+      <Notifications />
       <Header />
       <ProtectedRoute
         path="/"
