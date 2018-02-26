@@ -14,7 +14,7 @@ import styles from './styles';
 
 class Users extends React.Component {
   state = {
-    display: 'list',
+    display: 'table',
   };
 
   render() {
